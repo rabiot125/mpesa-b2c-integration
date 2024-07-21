@@ -1,0 +1,41 @@
+# Application name
+spring:
+  application:
+    name: MpesaB2C
+
+  # DataSource configuration
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+
+  # JPA configuration
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  # H2 console configuration
+  h2:
+    console:
+      enabled: true
+
+  # Kafka configuration
+  kafka:
+    bootstrap-servers: localhost:9092
+
+  server:
+    port: 8080
+  mpesa:
+    daraja:
+
+      oauth-endpoint: https://sandbox.safaricom.co.ke/oauth/v1/generate
+      grant-type: client_credentials
+      shortCode: 603021
+      responseType: Completed
+      b2c-transaction-endpoint: https://sandbox.safaricom.co.ke/mpesa/b2c/v1/paymentrequest
+      b2c-result-url: https://1fc3-41-81-167-127.ngrok-free.app/mobile-money/transaction-result
+      b2c-queue-timeout-url: https://1fc3-41-81-167-127.ngrok-free.app/mobile-money/b2c-queue-timeout
+      b2c-initiator-name: testapi
+      b2c-initiator-password: Safaricom999!*!
+      transactionResultUrl: https://sandbox.safaricom.co.ke/mpesa/transactionstatus/v1/query
+
