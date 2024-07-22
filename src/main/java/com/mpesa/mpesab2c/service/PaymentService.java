@@ -28,6 +28,8 @@ public interface PaymentService {
     B2CTransactionSyncResponse performB2CTransaction(GwRequestDto dto) throws JsonProcessingException;
 
     B2CTransactionSyncResponse getTransactionResult(InternalTransactionStatusRequest transactionStatusRequest) throws JsonProcessingException;
+
+    RegisterUrlResponse registerUrl() throws JsonProcessingException;
 }
 
 

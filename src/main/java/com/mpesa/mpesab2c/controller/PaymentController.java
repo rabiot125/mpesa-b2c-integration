@@ -10,10 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/mobile-money")
@@ -28,9 +25,13 @@ public class PaymentController {
     public PaymentController(PaymentService paymentService, GwRequestRepository gwRequestRepository,  AcknowledgeResponse acknowledgeResponse, ObjectMapper objectMapper) {
         this.paymentService = paymentService;
         this.gwRequestRepository = gwRequestRepository;
-
         this.acknowledgeResponse = acknowledgeResponse;
         this.objectMapper = objectMapper;
+    }
+
+    @GetMapping(path = "/register-url", produces = "application/json")
+    public ResponseEntity<RegisterUrlResponse> registerUrl() throws JsonProcessingException {
+        return ResponseEntity.ok(paymentService.registerUrl());
     }
 
     @PostMapping(path = "/b2c-transaction", produces = "application/json")
@@ -42,6 +43,8 @@ public class PaymentController {
     @PostMapping(path = "/transaction-result", produces = "application/json")
     public ResponseEntity<AcknowledgeResponse> b2cTransactionAsyncResults(@RequestBody B2CTransactionAsyncResponse b2CTransactionAsyncResponse)
             throws JsonProcessingException {
+
+        log.info(" ---Transaction Result ---");
 
         log.info(objectMapper.writeValueAsString(b2CTransactionAsyncResponse));
 

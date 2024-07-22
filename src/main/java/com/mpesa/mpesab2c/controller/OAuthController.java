@@ -19,7 +19,7 @@ public class OAuthController {
     public OAuthController(OAuthService authService) {
         this.authService = authService;
     }
-@Operation(summary = "Generate Auth Token")
+    @Operation(summary = "Generate Auth Token")
     @GetMapping(value = "/oauth/generate-token",produces = "application/json")
     public ResponseEntity<OAuthResponseDto> generateToken() {
         OAuthResponseDto token = authService.generateToken();

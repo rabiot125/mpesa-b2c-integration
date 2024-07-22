@@ -42,6 +42,49 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
+    public RegisterUrlResponse registerUrl() throws JsonProcessingException {
+
+        OAuthResponseDto accessToken = authService.generateToken();
+
+        RegisterUrlRequest registerUrlRequest = new RegisterUrlRequest();
+        registerUrlRequest.setConfirmationURL(mpesaConfiguration.getConfirmationURL());
+        registerUrlRequest.setResponseType(mpesaConfiguration.getResponseType());
+        registerUrlRequest.setShortCode(mpesaConfiguration.getShortCode());
+        registerUrlRequest.setValidationURL(mpesaConfiguration.getValidationURL());
+
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+
+        String json = objectMapper.writeValueAsString(registerUrlRequest);
+
+        RequestBody body = RequestBody.create(mediaType,
+                Objects.requireNonNull(json));
+
+        Request request = new Request.Builder()
+                .url(mpesaConfiguration.getRegisterUrlEndpoint())
+                .post(body)
+                .addHeader("Authorization", "Bearer "+ accessToken.getAccessToken())
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+
+            assert response.body() != null;
+
+            String responseBody = response.body().string();
+
+            JsonNode jsonNode = objectMapper.readTree(responseBody);
+
+            log.info("Response Register ==== {}"+ jsonNode);
+            // use Jackson to Decode the ResponseBody ...
+            return objectMapper.readValue(response.body().string(), RegisterUrlResponse.class);
+
+        } catch (IOException e) {
+            log.error(String.format("Could not register url -> %s", e.getLocalizedMessage()));
+            return null;
+        }
+    }
+
+    @Override
     public B2CTransactionSyncResponse performB2CTransaction(GwRequestDto dto) throws JsonProcessingException {
 
         GwRequest gwRequest = new GwRequest();

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mpesa.mpesab2c.config.MpesaConfiguration;
 import com.mpesa.mpesab2c.dtos.OAuthResponseDto;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
+@Slf4j
 public class OAuthService {
     private final ObjectMapper objectMapper;
     private final MpesaConfiguration mpesaConfiguration;
@@ -39,6 +41,9 @@ public class OAuthService {
                 OAuthResponseDto oAuthResponseDto = new OAuthResponseDto();
                 oAuthResponseDto.setAccessToken(accessToken);
                 oAuthResponseDto.setExpiresIn(expiresIn);
+
+                log.info("Generating access token {}",objectMapper.writeValueAsString(oAuthResponseDto));
+
                 return oAuthResponseDto;
             } else {
                 throw new RuntimeException("Failed to generate token: " + response.message());

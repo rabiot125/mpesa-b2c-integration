@@ -25,17 +25,24 @@ spring:
 
   server:
     port: 8080
-  mpesa:
-    daraja:
 
-      oauth-endpoint: https://sandbox.safaricom.co.ke/oauth/v1/generate
-      grant-type: client_credentials
-      shortCode: 603021
-      responseType: Completed
-      b2c-transaction-endpoint: https://sandbox.safaricom.co.ke/mpesa/b2c/v1/paymentrequest
-      b2c-result-url: https://1fc3-41-81-167-127.ngrok-free.app/mobile-money/transaction-result
-      b2c-queue-timeout-url: https://1fc3-41-81-167-127.ngrok-free.app/mobile-money/b2c-queue-timeout
-      b2c-initiator-name: testapi
-      b2c-initiator-password: Safaricom999!*!
-      transactionResultUrl: https://sandbox.safaricom.co.ke/mpesa/transactionstatus/v1/query
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+mpesa:
+  daraja:
+    oauth-endpoint: https://sandbox.safaricom.co.ke/oauth/v1/generate
+    register-url-endpoint: https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl
+    grant-type: client_credentials
+    shortCode: 600584
+    confirmationURL: https://622a-41-72-192-18.ngrok-free.app/mobile-money/confirmation
+    validationURL: https://622a-41-72-192-18.ngrok-free.app/mobile-money/validation
+    responseType: Completed
+    b2c-transaction-endpoint: https://sandbox.safaricom.co.ke/mpesa/b2c/v1/paymentrequest
+    b2c-result-url: https://622a-41-72-192-18.ngrok-free.app/mobile-money/transaction-result
+    b2c-queue-timeout-url: https://622a-41-72-192-18.ngrok-free.app/mobile-money/b2c-queue-timeout
+    b2c-initiator-name: testapi
+    b2c-initiator-password: Safaricom999!*!
+    transactionResultUrl: https://sandbox.safaricom.co.ke/mpesa/transactionstatus/v1/query
 

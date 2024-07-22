@@ -13,8 +13,8 @@ import lombok.Data;
 public class GwRequestDto {
     private String originatorConversationID;
 
-    @NotNull(message = "Mobile number is mandatory")
-    @Pattern(regexp = "^(?:\\+254|0)?(7[0-9]{8})$", message = "Invalid Kenyan Safaricom mobile number")
+//    @NotNull(message = "Mobile number is mandatory")
+//    @Pattern(regexp = "^(?:\\+254|0)?(7[0-9]{8})$", message = "Invalid Kenyan Safaricom mobile number")
     private String partyB;
 
     private String conversationID;
